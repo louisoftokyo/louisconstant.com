@@ -1,0 +1,83 @@
+@import "_common.css.scss";
+@import "_fonts.css.scss";
+
+#menu
+{
+	display: block;
+	width: $PHOTO_WIDTH;
+	text-align: center;
+}
+
+#menuTable
+{
+	text-align: center;
+	display: inline-block;
+
+	td
+	{
+		width: 110px;
+		height: 50px;
+	}
+}
+
+.menuButton
+{
+	cursor: pointer;
+	@include font_menuButton;
+	@include unselectable;
+	@include quickTransition(0.1s);
+}
+
+#general:hover
+{
+	color: white;
+	background-color: #85c3ee;
+}
+
+#interiors:hover
+{
+	color: white;
+	background-color: #d083d0;
+}
+
+#events:hover
+{
+	color: white;
+	background-color: #fadd89;
+}
+
+#people:hover
+{
+	color: white;
+	background-color: #c5da71;
+}
+
+%selected
+{
+	color: white;
+}
+
+.selected_general
+{
+	@extend %selected;
+	background-color: #85c3ee;
+}
+
+.selected_interiors
+{
+	@extend %selected;
+	background-color: #d083d0;
+}
+
+.selected_events
+{
+	@extend %selected;
+	background-color: #fadd89;
+}
+
+.selected_people
+{
+	@extend %selected;
+	background-color: #c5da71;
+}
+

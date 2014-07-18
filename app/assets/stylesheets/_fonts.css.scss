@@ -1,0 +1,97 @@
+@mixin font_languages
+{
+	font-family: "Segoe UI";
+	letter-spacing: -1px;
+	text-transform: uppercase;
+}
+
+@mixin font_imgTitle
+{
+	font-family: "Segoe UI";
+	font-size: 18pt;
+	text-transform: uppercase;
+}
+
+@mixin font_pageTitle
+{
+	font-family: "Segoe UI bold";
+	letter-spacing: -2px;
+	font-size: 36pt;
+}
+
+@mixin font_menuButton
+{
+	font-family: "Segoe UI";
+	text-transform: uppercase;
+}
+
+@mixin font_aboutLabel
+{
+	font-family: "Segoe UI";
+	font-size: 20pt;
+	text-transform: uppercase;
+}
+
+@mixin font_aboutBlurb
+{
+	color: white;
+	font-family: "Georgia";
+	font-size: 14pt;
+}
+
+@mixin font_inlineProgrammer
+{
+	color: white;
+	font-family: "Courier New";
+	font-size: 18pt;
+	font-weight: bold;
+}
+
+@mixin font_inlinePhotographer
+{
+	color: white;
+	font-family: "Freestyle Script";
+	font-size: 28pt;
+}
+
+@mixin font_inlineSlimLogo
+{
+	color: white;
+	font-family: "Arial Narrow";
+	font-size: 25pt;
+	font-weight: bold;
+}
+
+@mixin font_email
+{
+	color: white;
+	font-family: "Georgia";
+	font-size: 24pt;
+	font-weight: bold;
+}
+
+@mixin font_socialTip
+{
+	font-family: "Segoe UI";
+	font-size: 8pt;
+	text-transform: uppercase;
+}
+
+@mixin font_copyright
+{
+	font-family: "Segoe UI";
+	font-size: 12pt;
+	text-transform: uppercase;
+}
+
+@font-face
+{
+    font-family: "Segoe UI";
+    src: url(font-path('segoeui.ttf'));
+}
+
+@font-face
+{
+    font-family: "Segoe UI bold";
+    src: url(font-path('segoeuib.ttf'));
+}

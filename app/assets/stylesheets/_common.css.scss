@@ -1,0 +1,76 @@
+$BACKGROUND_COLOUR: #F1F1F1;
+$HR_COLOUR: #AAAAAA;
+$PHOTO_WIDTH: 1200px;
+$PHOTO_HEIGHT: $PHOTO_WIDTH/(16/9);
+
+@mixin fadeTo($opacity, $duration: .10s)
+{
+   opacity: $opacity;
+   transition: opacity $duration ease-in-out;
+   -moz-transition: opacity $duration ease-in-out;
+   -webkit-transition: opacity $duration ease-in-out;
+}
+
+@mixin roundedCorners($radius: 10px)
+{
+	-moz-border-radius: $radius;
+	-webkit-border-radius: $radius;
+	border-radius: $radius;
+}
+
+@mixin metalBG
+{
+	background-image: image-url("aboutbg.jpg");
+
+	-moz-box-shadow:    inset 0 0 200px #000000;
+    -webkit-box-shadow: inset 0 0 200px #000000;
+    box-shadow:         inset 0 0 200px #000000;
+}
+
+@mixin dropShadow($x, $y, $blur, $spread, $opacity)
+{
+	-webkit-box-shadow: $x $y $blur $spread rgba(0,0,0,$opacity);
+	-moz-box-shadow: $x $y $blur $spread rgba(0,0,0,$opacity);
+	box-shadow: $x $y $blur $spread rgba(0,0,0,$opacity);
+}
+
+@mixin unselectable
+{
+	-webkit-user-select: none; 
+	-moz-user-select: none;
+	-ms-user-select: none;
+}
+
+@mixin quickTransition($duration: 0.3s)
+{
+	-webkit-transition: all ease $duration;
+	-moz-transition: all ease $duration;
+	-o-transition: all ease $duration;
+	-ms-transition: all ease $duration;
+	transition: all ease $duration;
+}
+
+@mixin rotate($degrees)
+{
+	-webkit-transform:rotate($degrees);
+	-moz-transform:rotate($degrees);
+	-o-transform:rotate($degrees);
+	-ms-transform:rotate($degrees);
+	transform:rotate($degrees);
+}
+
+@mixin blueHover
+{
+	&:hover
+	{
+		color: #85c3ee;
+	}	
+}
+
+a
+{
+	text-decoration: none;
+	color: black;
+	@include quickTransition(0.1s);
+	@include blueHover;
+}

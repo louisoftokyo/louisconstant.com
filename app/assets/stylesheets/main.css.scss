@@ -1,0 +1,427 @@
+@import "_common.css.scss";
+@import "_fonts.css.scss";
+
+$THUMBNAIL_WIDTH: 100px;
+$THUMBNAIL_BORDER_WIDTH: 4px;
+$ARROW_HEIGHT: 80px;
+
+body
+{
+	margin: 0px;
+	background: $BACKGROUND_COLOUR;
+	//background-image: image-url("mainbg.jpg");
+}
+
+hr
+{
+	border: 0;
+	color: #9E9E9E;
+	background-color: #9E9E9E;
+	height: 1px;
+	padding: 0px;
+    margin: 0px;
+	color: $HR_COLOUR;
+}
+
+.hrLight
+{
+	color: white;
+	background-color: white;
+
+	&.top
+	{
+		margin-top: 40px;
+	}
+
+	&.bottom
+	{
+		margin-bottom: 40px;
+	}
+}
+
+/****************TOP****************/
+
+.contentContainer
+{
+	width: 90%;
+	margin: 0 auto;
+}
+
+#mainContent
+{
+
+}
+
+#topDecoration
+{
+	height: 5px;
+	background-image: image-url("rainbowBar.jpg");
+}
+
+#titleLanguageBar
+{
+	margin-top: 30px;
+	width: 100%;	
+}
+
+	#pageTitle
+	{
+		float: left;
+		@include font_pageTitle;
+
+		&:hover
+		{
+			color: black;
+		}	
+	}
+
+	#languages
+	{
+		float: right;
+	}
+
+	.languageOption
+	{
+		@include font_languages;
+	}
+
+/****************WRAPPER: MENU, FRAME, THUMBNAILS****************/
+
+#menuFrameThumbnailWrapper
+{
+	//text-align: center;
+}
+
+/****************WRAPPER: FRAME, THUMBNAILS****************/
+
+#frameThumbnailWrapper
+{
+	margin-top: 10px;
+}
+
+#frame
+{
+	position: relative;
+	display: table-cell;
+	vertical-align: middle;
+	width: $PHOTO_WIDTH;
+	height: $PHOTO_HEIGHT;
+	display: inline-block;
+	text-align: center;
+	white-space: nowrap;
+
+	//@include metalBG;
+
+	&:hover #imgTitleContainer
+	{
+		@include fadeTo(1.0);
+	}
+
+	&:hover #imgOverlay
+	{
+		@include fadeTo(1.0)
+	}
+}
+
+@mixin mainImgShadow($blur: 5px, $spread: 0px)
+{
+	-webkit-box-shadow: 6px 0px 128px -5px rgba(0,0,0,0.75), 6px 0px 128px -5px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 128px 22px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 128px 22px rgba(0,0,0,0.75);
+}
+
+
+
+#mainImgBacking
+{
+	position: absolute;
+	display: inline-block;
+	margin: auto;
+	top: 0; left: 0; bottom: 0; right: 0;
+	width: 0px;
+	height: 0px;
+
+	background-color: $BACKGROUND_COLOUR;
+	z-index: -1;
+	pointer-events:none;
+}
+
+#mainImgShadow
+{
+	position: absolute;
+	display: inline-block;
+	margin: auto;
+	top: 0; left: 0; bottom: 0; right: 0;
+	width: 0px;
+	height: 0px;
+
+	background-color: #808080;
+	z-index: -2;
+	pointer-events:none;
+
+	@include mainImgShadow();
+}
+
+#mainImg
+{
+	max-width: $PHOTO_WIDTH;
+	max-height: $PHOTO_HEIGHT;
+	vertical-align: middle;
+}
+
+	#mainImgPositioner
+	{    
+		display: inline-block;
+    	height: 100%;
+    	vertical-align: middle;
+	}
+
+#thumbnailWrapper
+{
+	width: ($THUMBNAIL_WIDTH + $THUMBNAIL_BORDER_WIDTH * 2) * 3;
+	height: $PHOTO_HEIGHT + 60px;
+	padding-right: 40px;
+	overflow-x: scroll;
+	overflow-x: hidden;
+	text-align: center;
+
+	float: right;
+
+	&::-webkit-scrollbar
+	{
+	    width: 8px;
+	}
+	 
+	&::-webkit-scrollbar-track
+	{
+	    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+	    -webkit-border-radius: 10px;
+	    border-radius: 10px;
+	}
+	 
+	&::-webkit-scrollbar-thumb
+	{
+	    -webkit-border-radius: 10px;
+	    border-radius: 10px;
+	    background: rgba(50,50,50,0.8); 
+	}
+
+	&::-webkit-scrollbar-thumb:window-inactive
+	{
+		background: rgba(50,50,50,0.4); 
+	}
+
+}
+
+.imgThumbnail
+{
+	cursor: pointer;
+	//border: $THUMBNAIL_BORDER_WIDTH solid $BACKGROUND_COLOUR;
+	position: relative;
+	margin: $THUMBNAIL_BORDER_WIDTH / 2;
+	width: $THUMBNAIL_WIDTH;
+	height: $THUMBNAIL_WIDTH;
+
+	opacity: 0.0;
+
+	animation: 0.0;
+}
+
+	.highlightedThumbnail
+	{
+		@include dropShadow(0px, 0px, 20px, -4px, 0.75);
+		opacity: 1.0 !important;
+		z-index: 1;
+	}
+
+	.clickedThumbnail
+	{
+		$zoomAmount: 0.9;
+
+		-webkit-transform: scale($zoomAmount, $zoomAmount);
+		-moz-transform: scale($zoomAmount, $zoomAmount);
+		-o-transform: scale($zoomAmount, $zoomAmount);
+		-ms-transform: scale($zoomAmount, $zoomAmount);
+		transform: scale($zoomAmount, $zoomAmount);
+	}
+
+	.selectedThumbnail
+	{
+		opacity: 1.0 !important;
+	}
+
+.thumbnailCell
+{
+	//opacity: 0.4;
+	width: $THUMBNAIL_WIDTH;
+	height: $THUMBNAIL_WIDTH;
+	vertical-align: middle;
+	&:hover .imgThumbnail
+	{
+		//@include fadeTo(1.0);
+	}
+}
+
+
+
+
+
+/****************IMGOVERLAY****************/
+
+#imgOverlay
+{
+	position: absolute;
+	width: $PHOTO_WIDTH;
+
+	text-align: center;
+	opacity: 0.0;
+	z-index: 10;
+	pointer-events:none;
+}
+
+%arrowIcon
+{
+	cursor: pointer;
+	position: absolute;
+	top: $PHOTO_HEIGHT/2 - $ARROW_HEIGHT/2;
+	opacity: 0.3;
+	pointer-events: all;
+
+	&:hover
+	{
+		opacity: 1.0;
+	}
+}
+
+#rightArrow
+{	
+	@extend %arrowIcon;
+	right: 30px;
+}
+
+#leftArrow
+{
+	@extend %arrowIcon;
+	left: 30px;
+}
+
+/****************IMGTITLE****************/
+
+#imgTitle
+{
+	@include font_imgTitle;
+}
+
+#imgTitleContainer
+{
+	text-align: center;
+	width: $PHOTO_WIDTH;
+}
+
+/*BOTTOM CONTAINER*/
+
+#bottomContainer
+{
+	text-align: center;
+}
+
+#socialButtonsContainer
+{
+	margin-top: 40px;
+	margin-bottom: 40px;
+	height: 64px;
+	text-align: center;
+}
+
+.socialButton
+{
+	width: 64px;
+	height: 64px;
+	display: inline-block;
+	margin-left: 5px;
+	margin-right: 5px;
+	background-repeat: no-repeat;
+	
+	@include quickTransition;
+
+	&:hover
+	{
+		@include rotate(360deg);
+	}
+}
+
+.socialButtonDiv
+{
+	display: inline-block;
+	text-align: center;
+}
+
+.socialTip
+{
+	@include font_socialTip;
+	position: relative;
+	top: 10px;
+	width: 150px;
+	opacity: 0.0;
+	display: block;
+
+	&:after
+	{
+		content: "\A ▼"
+	}
+}
+
+
+#socialButton_GitHub
+{
+	background-image: url('github_dark.png');
+
+	&:hover
+	{
+		background-image: url('github_active.png');
+	}
+}
+
+#socialButton_Flickr
+{
+	background-image: url('flickr_dark.png');
+
+	&:hover
+	{
+		background-image: url('flickr_active.png');
+	}
+}
+
+#socialButton_LinkedIn
+{
+	background-image: url('in_dark.png');
+
+	&:hover
+	{
+		background-image: url('in_active.png');
+	}
+}
+
+#a7outline
+{
+	display: block;
+	margin: 80px auto 0px auto;
+}
+
+#copyrightContainer
+{
+	text-align: center;
+	margin-top: 20px;
+	margin-bottom: 50px;
+}
+
+	#copyright
+	{
+		@include font_copyright;
+	}
+
+	#credits
+	{
+		@include font_copyright;
+		font-size: 6px;
+	}
