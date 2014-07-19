@@ -18,8 +18,13 @@ class HomeController < ApplicationController
   end
   
   def latest
-    @photo = Photo.order("id ASC").first
-    respond_with(@photo)
+    @whereResult = Photo.where("album = ?", params[:album])
+    if @whereResult.blank?
+      @photo = Photo.first
+    else    
+      @photo = @whereResult.order("id ASC").first
+    end   
+  respond_with(@photo)
   end
 
   def getPhoto
@@ -49,25 +54,26 @@ class HomeController < ApplicationController
   end
   
   def previous
-	@whereResult = Photo.where("id < ?", params[:clientNum])
-	if @whereResult.blank?
-	  @photo = Photo.order("id DESC").first
-	else	  
-	  @photo = @whereResult.order("id DESC").first
-	end
-	  
+  	@whereResult = Photo.
+      where("id < ?", params[:clientNum]).
+      where("album = ?", params[:album])
+  	if @whereResult.blank?
+  	  @photo = Photo.order("id DESC").first
+  	else	  
+  	  @photo = @whereResult.order("id DESC").first
+  	end	  
 	respond_with(@photo)
   end
-
    
   def next
-	@whereResult = Photo.where("id > ?", params[:clientNum])
-	if @whereResult.blank?
-	  @photo = Photo.first
-	else	  
-	  @photo = @whereResult.order("id ASC").first
-	end
-	  
+  	@whereResult = Photo.
+      where("id > ?", params[:clientNum]).
+      where("album = ?", params[:album])
+  	if @whereResult.blank?
+  	  @photo = Photo.first
+  	else	  
+  	  @photo = @whereResult.order("id ASC").first
+  	end	  
 	respond_with(@photo)
   end
   

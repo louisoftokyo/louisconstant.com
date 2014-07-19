@@ -11,14 +11,16 @@ import getColours
 dbDev = 'development.sqlite3'
 dbLive = 'live.sqlite3'
 
-db = sqlite3.connect('../db/' + dbDev)
+homePath = 'd:/dev/photos'
+
+db = sqlite3.connect(os.path.join(homePath, 'db', dbDev))
 apiKey = '4f85c2767954baab84d30074927e52db'
 apiSecret = 'ca21182c305e6173'
 username = '95043389@N04'    
 flickr = flickrapi.FlickrAPI(apiKey, apiSecret)
 
-photosPath = '../app/assets/images/photos/{0}/{1}.jpg'
-thumbnailsPath = '../app/assets/images/thumbnails/{0}/{1}.jpg'
+photosPath = os.path.join(homePath, 'app/assets/images/photos/{0}/{1}.jpg')
+thumbnailsPath = os.path.join(homePath, 'app/assets/images/thumbnails/{0}/{1}.jpg')
 
 def downloadPhoto(url, id, thumbnail, album):
   path = ''
@@ -27,6 +29,7 @@ def downloadPhoto(url, id, thumbnail, album):
     print 'Downloading thumbnail ', id, 'into album folder', album, '...'
   else:
     path = thumbnailsPath.format(album, id)
+    print '##############', photosPath
     print 'Downloading photo ', id, 'into album folder', album, '...'
 
   gotPhoto = False
@@ -35,8 +38,9 @@ def downloadPhoto(url, id, thumbnail, album):
       urllib.urlretrieve(url, path)
       print 'Success.'
       gotPhoto = True
-    except:
-      print 'Failed. Retrying...'
+    except Exception as e:
+      print 'Failed to get photo:', e
+      print 'Retrying...'
 
 def getPhotoData():
   album_General   = 'general'  , '72157645072004150'
@@ -109,7 +113,7 @@ def traverseAlbum(album):
     focal_length = focal_length.replace(' mm', '')
     date_taken = date_taken.replace(':', '-', 2)
     
-    photoData = [id, shutter_speed, f, iso, focal_length, date_taken, hue, title, description, brightness]
+    photoData = {'id': id, 'album': album[0], 'english_title': title, 'japanese_title': description}
     
     insertPhotoData(db, photoData)
 
@@ -117,28 +121,24 @@ def traverseAlbum(album):
 
     
 def insertPhotoData(db, photoData):
-  sqlIF = """SELECT filename FROM photos WHERE filename = ?"""
-  sqlINSERT = """INSERT INTO photos (filename, shutter_speed, f, iso, focal_length, date_taken, hue, english_title, japanese_title, brightness)
-                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"""
+  sqlIF = """SELECT filename FROM photos WHERE filename = ? AND album = ?"""
   sqlUPDATE = """UPDATE photos
-                 SET shutter_speed=?, f=?, iso=?, focal_length=?, date_taken=?, hue=?, english_title=?, japanese_title=?, brightness=?
+                 SET album = ?, english_title=?, japanese_title=?
                  WHERE filename = ?"""
-                 
-  '''print sqlIF
-  print sqlINSERT
-  print sqlUPDATE'''
-  
+  sqlINSERT = """INSERT INTO photos (filename, english_title, japanese_title, album)
+                  VALUES (?, ?, ?, ?)"""
+ 
   with db:
       
-    cur = db.execute(sqlIF, (photoData[0],))
+    cur = db.execute(sqlIF, (photoData['id'], photoData['album']))
     alreadyExists = cur.fetchone() is not None
     
     if alreadyExists:
-      db.execute(sqlUPDATE, (photoData[1], photoData[2], photoData[3], photoData[4], photoData[5], photoData[6], photoData[7], photoData[8], photoData[9], photoData[0]))
-      print 'Updated', photoData[0], '(' + photoData[0] + ')'
+      db.execute(sqlUPDATE, (photoData['album'], photoData['english_title'], photoData['japanese_title'], photoData['id']))
+      print 'Updated', photoData['id'], '(' + photoData['english_title'] + ').'
     else:
-      db.execute(sqlINSERT, photoData)
-      print 'Inserted', photoData[0]
+      db.execute(sqlINSERT, (photoData['id'], photoData['english_title'], photoData['japanese_title'], photoData['album']))
+      print 'Inserted', photoData['id'], '(' + photoData['english_title'] + ').'
 
 def main():
   getPhotoData()

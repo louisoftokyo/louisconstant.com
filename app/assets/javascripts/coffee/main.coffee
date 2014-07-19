@@ -2,7 +2,7 @@ photoNum = 1
 locale = "xx"
 thumbnailWidth = 100
 aboutPanelOpen = false
-selectedMenuName = "general"
+currentAlbum = "general"
 
 $(document).ready -> init()
 
@@ -61,14 +61,14 @@ init = ->
 	$("#leftArrow").click previousPhoto
 
 	getLocale()
-	latestPhoto()
-	menuSwitch(selectedMenuName)
+	firstPhoto()
+	menuSwitch(currentAlbum)
 
 loadPhotoJSON = (photoJSON) ->
 	return if photoJSON is null
 	$("#mainImgShadow").fadeTo(0, 0.0);
 	$("#mainImg").fadeTo 200, 0.0, -> 
-		$("#mainImg").attr "src", "/assets/photos/" + selectedMenuName + "/" + photoJSON["filename"] + ".jpg"
+		$("#mainImg").attr "src", "/assets/photos/" + currentAlbum + "/" + photoJSON["filename"] + ".jpg"
 	$("#imgTitle").fadeTo 200, 0.0, -> 
 		$("#imgTitle").html (if locale is "ja" then photoJSON["japanese_title"] else photoJSON["english_title"])
 	$("#imgTitle").fadeTo 200, 1.0	
@@ -83,8 +83,9 @@ menuSwitch = (menuName) ->
 	$(".menuButton").each -> $(@).removeClass "selected_" + $(@).attr "id"
 	selectedMenuObject = $("#" + menuName)
 	selectedMenuObject.addClass "selected_" + menuName
-	selectedMenuName = menuName
+	currentAlbum = menuName
 	loadThumbnails(menuName)
+	firstPhoto(currentAlbum)
 
 
 loadThumbnails = (album) ->
@@ -97,7 +98,7 @@ loadThumbnails = (album) ->
 	    $(@).delay(delay)
 	    $(@).animate {opacity: 0}, thumbnailFadeoutTime
 	    delay += thumbnailFadeoutInterval
-		#$(@).attr "src", "/assets/thumbnails/" + selectedMenuName + "/" + ($(@).attr "id") + ".jpg"
+		#$(@).attr "src", "/assets/thumbnails/" + currentAlbum + "/" + ($(@).attr "id") + ".jpg"
 
 	$('.imgThumbnail').remove()
 
@@ -139,12 +140,12 @@ loadThumbnails = (album) ->
 
 
 
-	#$(".imgThumbnail").each -> $(@).attr "src", "/assets/thumbnails/" + selectedMenuName + "/" + ($(@).attr "id") + ".jpg"
+	#$(".imgThumbnail").each -> $(@).attr "src", "/assets/thumbnails/" + currentAlbum + "/" + ($(@).attr "id") + ".jpg"
 
-latestPhoto   	   = -> $.get "home/latest", {}, (data) -> loadPhotoJSON data
-getLocale          = -> $.get "home/locale", {}, (data) -> locale = data
-nextPhoto          = -> $.post "home/next", {clientNum:photoNum}, (data) -> loadPhotoJSON data
-previousPhoto      = -> $.post "home/previous", {clientNum:photoNum}, (data) -> loadPhotoJSON data
-getPhoto = (id)      -> $.post "home/getPhoto", {photoID:id}, (data) -> loadPhotoJSON data
+getLocale          = -> $.get "home/locale"   , {}                                      , (data) -> locale = data
+firstPhoto   	   = -> $.get "home/latest"   , {                    album:currentAlbum}, (data) -> loadPhotoJSON data
+nextPhoto          = -> $.post "home/next"    , {clientNum:photoNum, album:currentAlbum}, (data) -> loadPhotoJSON data
+previousPhoto      = -> $.post "home/previous", {clientNum:photoNum, album:currentAlbum}, (data) -> loadPhotoJSON data
+getPhoto = (id)      -> $.post "home/getPhoto", {photoID:id}                            , (data) -> loadPhotoJSON data
 
 
