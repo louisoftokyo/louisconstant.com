@@ -1,5 +1,6 @@
-photoNum = 1
 locale = "en"
+
+photoNum = 1
 currentAlbum = "general"
 
 $(document).ready -> init()
@@ -36,15 +37,10 @@ init = ->
 	
 	$("#aboutLabel").click ->
 		open = $("#aboutPanel").hasClass("open")
-		newHeight = (if open then "0" else "165px")
-		newPadding = (if open then "0" else "120px")
-		newBorder = (if open then "" else "1px solid white")
-		newDottedLineOpacity = (if open then "1.0" else "0.0")
-
-		$("#aboutPanel").animate {"padding-top": newPadding, "padding-bottom": newPadding, "height": newHeight}, {duration: 1000, easing: "easeOutQuart", queue: false}
-		$("#aboutPanel").css {"border-top": newBorder}
-		$(".dottedLine").css {"opacity": newDottedLineOpacity}
-		if open then $("#aboutPanel").removeClass("open") else $("#aboutPanel").addClass("open") 
+		oldClass = (if open then "open" else "closed")
+		newClass = (if open then "closed" else "open")
+		$("#aboutPanel").switchClass(oldClass, newClass, {'duration': 1000, 'easing': 'easeOutQuart'});
+		$(".dottedLine").css {"opacity": (if open then "1.0" else "0.0")}
 
 	$(".socialButton").mouseenter ->
 		$(@).prev().animate {opacity: "1.0", top: "-10px"}, 100
