@@ -1,6 +1,5 @@
 photoNum = 1
-locale = "xx"
-thumbnailWidth = 100
+locale = "en"
 aboutPanelOpen = false
 currentAlbum = "general"
 
@@ -31,8 +30,8 @@ init = ->
 		getPhoto($("img", @).attr "id")
 
 	$("#thumbnailTable").on 'mousemove', '.thumbnailCell', (e) ->
-		xPos = e.pageX - $(@).offset().left - thumbnailWidth/2
-		yPos = e.pageY - $(@).offset().top - thumbnailWidth/2
+		xPos = e.pageX - $(@).offset().left - $(@).width()/2
+		yPos = e.pageY - $(@).offset().top - $(@).width()/2
 		transform = "scale(" + zoomAmount + ", " + zoomAmount + ") perspective(600px) rotateY(" + xPos/100 * maxRotation + "deg) rotateX(" + yPos/100 * -maxRotation + "deg)"
 		$("img", @).css {"transform": transform, "-webkit-transform": transform, "-ms-transform": transform}
 	
