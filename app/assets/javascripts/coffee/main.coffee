@@ -1,6 +1,5 @@
 photoNum = 1
 locale = "en"
-aboutPanelOpen = false
 currentAlbum = "general"
 
 $(document).ready -> init()
@@ -36,15 +35,16 @@ init = ->
 		$("img", @).css {"transform": transform, "-webkit-transform": transform, "-ms-transform": transform}
 	
 	$("#aboutLabel").click ->
-		newHeight = (if aboutPanelOpen then "0" else "165px")
-		newPadding = (if aboutPanelOpen then "0" else "120px")
-		newBorder = (if aboutPanelOpen then "" else "1px solid white")
-		newDottedLineOpacity = (if aboutPanelOpen then "1.0" else "0.0")
+		open = $("#aboutPanel").hasClass("open")
+		newHeight = (if open then "0" else "165px")
+		newPadding = (if open then "0" else "120px")
+		newBorder = (if open then "" else "1px solid white")
+		newDottedLineOpacity = (if open then "1.0" else "0.0")
 
 		$("#aboutPanel").animate {"padding-top": newPadding, "padding-bottom": newPadding, "height": newHeight}, {duration: 1000, easing: "easeOutQuart", queue: false}
 		$("#aboutPanel").css {"border-top": newBorder}
 		$(".dottedLine").css {"opacity": newDottedLineOpacity}
-		aboutPanelOpen = not aboutPanelOpen
+		if open then $("#aboutPanel").removeClass("open") else $("#aboutPanel").addClass("open") 
 
 	$(".socialButton").mouseenter ->
 		$(@).prev().animate {opacity: "1.0", top: "-10px"}, 100
