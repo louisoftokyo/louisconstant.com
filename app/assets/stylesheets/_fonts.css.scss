@@ -1,33 +1,27 @@
 @mixin font_languages
 {
-	font-family: "Segoe UI";
+	font-family: "open_sansregular";
 	letter-spacing: -1px;
 	text-transform: uppercase;
 }
 
 @mixin font_imgTitle
 {
-	font-family: "Segoe UI";
+	font-family: "open_sansregular";
+	letter-spacing: -2px;
 	font-size: 18pt;
 	text-transform: uppercase;
 }
 
-@mixin font_pageTitle
-{
-	font-family: "Segoe UI bold";
-	letter-spacing: -2px;
-	font-size: 36pt;
-}
-
 @mixin font_menuButton
 {
-	font-family: "Segoe UI";
+	font-family: "open_sansregular";
 	text-transform: uppercase;
 }
 
 @mixin font_aboutLabel
 {
-	font-family: "Segoe UI";
+	font-family: "open_sansregular";
 	font-size: 20pt;
 	text-transform: uppercase;
 }
@@ -72,26 +66,44 @@
 
 @mixin font_socialTip
 {
-	font-family: "Segoe UI";
+	font-family: "open_sansregular";
 	font-size: 8pt;
 	text-transform: uppercase;
 }
 
 @mixin font_copyright
 {
-	font-family: "Segoe UI";
+	font-family: "open_sansregular";
 	font-size: 12pt;
 	text-transform: uppercase;
 }
 
 @font-face
 {
-    font-family: "Segoe UI";
-    src: url(font-path('segoeui.ttf'));
+    font-family: "open sans condensed";
+    src: url(font-path('OpenSans-CondLight.ttf'));
 }
 
 @font-face
 {
-    font-family: "Segoe UI bold";
-    src: url(font-path('segoeuib.ttf?#iefix'));
+    font-family: 'open_sansregular';
+    src: url(font-path('OpenSans-Regular-webfont.eot'));
+    src: url(font-path('OpenSans-Regular-webfont.eot?#iefix')) format('embedded-opentype'),
+         url(font-path('OpenSans-Regular-webfont.woff')) format('woff'),
+         url(font-path('OpenSans-Regular-webfont.ttf')) format('truetype'),
+         url(font-path('OpenSans-Regular-webfont.svg#open_sansregular')) format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face
+{
+    font-family: 'open_sansbold';
+    src: url(font-path('OpenSans-Bold-webfont.eot'));
+    src: url(font-path('OpenSans-Bold-webfont.eot?#iefix')) format('embedded-opentype'),
+         url(font-path('OpenSans-Bold-webfont.woff')) format('woff'),
+         url(font-path('OpenSans-Bold-webfont.ttf')) format('truetype'),
+         url(font-path('OpenSans-Bold-webfont.svg#open_sansbold')) format('svg');
+    font-weight: normal;
+    font-style: normal;
 }

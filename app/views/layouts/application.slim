@@ -15,8 +15,7 @@ html
       table#titleLanguageTable
         tr
           td
-            span#pageTitle
-              = link_to "Louis Constant.", home_path
+            = image_tag("pageTitle.png", :id => "pageTitle")
           td
             span#languages
               span.languageOption
@@ -81,7 +80,7 @@ html
         tr
           td
             span.socialTip= t('gitHubBlurb')
-            a#socialButton_GitHub.socialButton href="http://google.com" title="GitHub"
+            a#socialButton_GitHub.socialButton href="https://github.com/marunouchi/louisconstant.com" title="GitHub"
           td
             span.socialTip= t('flickrBlurb')
             a#socialButton_Flickr.socialButton href="https://www.flickr.com/photos/95043389@N04/" title="Flickr" 

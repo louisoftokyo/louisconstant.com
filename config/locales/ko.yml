@@ -1,4 +1,4 @@
-﻿# Files in the config/locales directory are used for internationalization
+# Files in the config/locales directory are used for internationalization
 # and are automatically loaded by Rails. If you want to use locales other
 # than English, add the necessary files in this directory.
 #
@@ -31,6 +31,6 @@ ko:
     이 사이트는 &nbsp;<a href="http://rubyonrails.org"><img class="inlineLogo" src="/assets/logo_rails.png"/></a>, &nbsp;<a href="http://slim-lang.com"><img class="inlineLogo" src="/assets/logo_slim.png"/></a>, &nbsp;<a href="http://coffeescript.org"><img class="inlineLogo inlineLogoShift" src="/assets/logo_coffeescript.png"/></a>과 &nbsp;<a href="http://sass-lang.com"><img class="inlineLogo inlineLogoShift" src="/assets/logo_sass.png"/></a>&nbsp;으로 개발되었습니다.
   aboutBlurb3_html: |
     이 사이트에 있는 사진들은 &nbsp;<img class="inlineLogo" src="/assets/logo_sony.png"/> a7과 다양한 <img class="inlineLogo" src="/assets/logo_sony.png"/> + &nbsp;<img class="inlineLogo" src="/assets/logo_minolta.png"/>&nbsp;의 렌즈들로 찍은 것들입니다.
-  gitHubBlurb: "GitHubで소스열람"
-  linkedInBlurb: "LinkedIn에서 맺기"
-  flickrBlurb: "Flickr에서팔로우"
+  gitHubBlurb: "GitHub으로 소스열람"
+  linkedInBlurb: "LinkedIn으로 맺기"
+  flickrBlurb: "Flickr로 팔로우"
