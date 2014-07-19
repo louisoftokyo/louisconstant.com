@@ -58,10 +58,11 @@ hr
 	background-image: image-url("rainbowBar.jpg");
 }
 
-#titleLanguageBar
+#titleLanguageTable
 {
+	width: 100%;
+	vertical-align: middle;
 	margin-top: 30px;
-	width: 100%;	
 }
 
 	#pageTitle
@@ -89,28 +90,28 @@ hr
 
 #menuFrameThumbnailWrapper
 {
-	//text-align: center;
+	text-align: center;
 }
 
 /****************WRAPPER: FRAME, THUMBNAILS****************/
 
 #frameThumbnailWrapper
 {
-	margin-top: 10px;
+	background-color: red;
+	height: 675px;
+
+	text-align: center;
+
+
 }
 
 #frame
-{
-	position: relative;
-	display: table-cell;
-	vertical-align: middle;
-	width: $PHOTO_WIDTH;
-	height: $PHOTO_HEIGHT;
+{	
+	background-color: blue;
 	display: inline-block;
-	text-align: center;
-	white-space: nowrap;
 
-	//@include metalBG;
+	width: 1200px;
+	height: 675px;
 
 	&:hover #imgTitleContainer
 	{
@@ -122,6 +123,73 @@ hr
 		@include fadeTo(1.0)
 	}
 }
+
+#frameThumbnailTable
+{
+	margin-left:auto; 
+    margin-right:auto;
+
+    text-align: center;
+}
+
+#frameCell
+{
+	//background-color: red;
+	width: 1200px;
+	height: 675px;
+}
+
+#thumbnailWrapperCell
+{
+	//background-color: green;
+	height: 675px;
+}
+
+#mainImg
+{
+	max-width: 100%;
+	max-height: 100%;
+
+	&:hover ~ .arrowIcon
+	{
+		opacity: 0.3;
+	}
+}
+
+#thumbnailWrapper
+{
+	display: inline-block;
+	padding-left: 80px;
+	padding-right: 40px;
+	height: 675px;
+	overflow-y: scroll;
+
+	&::-webkit-scrollbar
+	{
+	    width: 8px;
+	}
+	 
+	&::-webkit-scrollbar-track
+	{
+	    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+	    -webkit-border-radius: 10px;
+	    border-radius: 10px;
+	}
+	 
+	&::-webkit-scrollbar-thumb
+	{
+	    -webkit-border-radius: 10px;
+	    border-radius: 10px;
+	    background: rgba(50,50,50,0.8); 
+	}
+
+	&::-webkit-scrollbar-thumb:window-inactive
+	{
+		background: rgba(50,50,50,0.4); 
+	}
+
+}
+
 
 @mixin mainImgShadow($blur: 5px, $spread: 0px)
 {
@@ -162,12 +230,7 @@ hr
 	@include mainImgShadow();
 }
 
-#mainImg
-{
-	max-width: $PHOTO_WIDTH;
-	max-height: $PHOTO_HEIGHT;
-	vertical-align: middle;
-}
+
 
 	#mainImgPositioner
 	{    
@@ -176,42 +239,7 @@ hr
     	vertical-align: middle;
 	}
 
-#thumbnailWrapper
-{
-	width: ($THUMBNAIL_WIDTH + $THUMBNAIL_BORDER_WIDTH * 2) * 3;
-	height: $PHOTO_HEIGHT + 60px;
-	padding-right: 40px;
-	overflow-x: scroll;
-	overflow-x: hidden;
-	text-align: center;
 
-	float: right;
-
-	&::-webkit-scrollbar
-	{
-	    width: 8px;
-	}
-	 
-	&::-webkit-scrollbar-track
-	{
-	    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
-	    -webkit-border-radius: 10px;
-	    border-radius: 10px;
-	}
-	 
-	&::-webkit-scrollbar-thumb
-	{
-	    -webkit-border-radius: 10px;
-	    border-radius: 10px;
-	    background: rgba(50,50,50,0.8); 
-	}
-
-	&::-webkit-scrollbar-thumb:window-inactive
-	{
-		background: rgba(50,50,50,0.4); 
-	}
-
-}
 
 .imgThumbnail
 {
@@ -270,13 +298,14 @@ hr
 
 #imgOverlay
 {
-	position: absolute;
+	position: relative;
 	width: $PHOTO_WIDTH;
-
+	height: 675px;
+	display: table-cell;
+	vertical-align: middle;
 	text-align: center;
-	opacity: 0.0;
 	z-index: 10;
-	pointer-events:none;
+	pointer-events: all;
 }
 
 %arrowIcon
@@ -284,7 +313,7 @@ hr
 	cursor: pointer;
 	position: absolute;
 	top: $PHOTO_HEIGHT/2 - $ARROW_HEIGHT/2;
-	opacity: 0.3;
+	opacity: 0;
 	pointer-events: all;
 
 	&:hover
@@ -325,11 +354,11 @@ hr
 	text-align: center;
 }
 
-#socialButtonsContainer
+#socialButtonsTable
 {
+	margin-left: auto;
+	margin-right: auto;
 	margin-top: 40px;
-	margin-bottom: 40px;
-	height: 64px;
 	text-align: center;
 }
 
@@ -348,12 +377,6 @@ hr
 	{
 		@include rotate(360deg);
 	}
-}
-
-.socialButtonDiv
-{
-	display: inline-block;
-	text-align: center;
 }
 
 .socialTip
@@ -405,7 +428,7 @@ hr
 #a7outline
 {
 	display: block;
-	margin: 80px auto 0px auto;
+	margin: 0px auto;
 }
 
 #copyrightContainer

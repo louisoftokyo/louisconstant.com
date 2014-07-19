@@ -12,47 +12,50 @@ html
     #bigOverlay
     #topDecoration
     #mainContent.contentContainer
-      #titleLanguageBar
-        span#pageTitle
-          = link_to "Louis Constant.", home_path
-      span#languages
-        span.languageOption
-          = link_to "English", params.merge(:locale => :en)
-        |&nbsp;&nbsp;|&nbsp;&nbsp;
-        span.languageOption
-          = link_to "日本語", params.merge(:locale => :ja)
-        |&nbsp;&nbsp;|&nbsp;&nbsp;
-        span.languageOption
-          = link_to "한국어", params.merge(:locale => :ko)
-      br/
-      br/
-      br/
+      table#titleLanguageTable
+        tr
+          td
+            span#pageTitle
+              = link_to "Louis Constant.", home_path
+          td
+            span#languages
+              span.languageOption
+                = link_to "English", params.merge(:locale => :en)
+              |&nbsp;&nbsp;|&nbsp;&nbsp;
+              span.languageOption
+                = link_to "日本語", params.merge(:locale => :ja)
+              |&nbsp;&nbsp;|&nbsp;&nbsp;
+              span.languageOption
+                = link_to "한국어", params.merge(:locale => :ko)
       hr.hrLight.top
       hr/
       hr.hrLight.bottom
-      #menuFrameThumbnailWrapper
-        #menu
-          table#menuTable
-            tr#menuRow
+
+      table#frameThumbnailTable
+        tr
+          td
+            table#menuTable
+              tr#menuRow
               td#general.menuButton= t('generalButton')
               td#people.menuButton= t('peopleButton')
               td#events.menuButton= t('eventsButton')
               td#interiors.menuButton= t('interiorsButton')
-        #frameThumbnailWrapper
-          #frame
+          td
+        tr
+          td#frameCell
             #imgOverlay
+              = image_tag("", :id => "mainImg", :class => "", :data => {:filename => "" })
               = image_tag("left_arrow.png", :id => "leftArrow")
               = image_tag("right_arrow.png", :id => "rightArrow")
-            #mainImgShadow
-            span#mainImgPositioner
-            = image_tag("", :id => "mainImg", :class => "", :data => {:filename => "" })
-            /#mainImgBacking
-          #thumbnailWrapper
-            table#thumbnailTable
-        #imgTitleContainer
-          br/
-          span#imgTitle
-        br/
+              #mainImgShadow
+          td#thumbnailWrapperCell
+            #thumbnailWrapper
+              table#thumbnailTable
+        tr
+          td
+            span#imgTitle
+          td
+      br/
       hr.hrLight.top
       hr/
       hr.hrLight.bottom 
@@ -61,27 +64,30 @@ html
       span#aboutTriangle ▼
       hr.dottedLine
     #aboutPanel.closed
-      #aboutPanelContent
-        #aboutPhotoBlurbContainer
-          = image_tag("me.png", :id => "aboutPhoto")
-          span#aboutBlurb
-            = t('aboutBlurb1_html')
-            <br/>
-            = t('aboutBlurb2_html')
-            <br/>
-            <br/>
-            = t('aboutBlurb3_html')
+      table#aboutTable
+        tr
+          td
+            = image_tag("me.png", :id => "aboutPhoto")
+          td
+            span#aboutBlurb
+              = t('aboutBlurb1_html')
+              <br/>
+              = t('aboutBlurb2_html')
+              <br/>
+              <br/>
+              = t('aboutBlurb3_html')
     #bottomContainer.contentContainer
-      #socialButtonsContainer
-        .socialButtonDiv
-          span.socialTip= t('gitHubBlurb')
-          a#socialButton_GitHub.socialButton href="http://google.com" title="GitHub" 
-        .socialButtonDiv
-          span.socialTip= t('flickrBlurb')
-          a#socialButton_Flickr.socialButton href="https://www.flickr.com/photos/95043389@N04/" title="Flickr" 
-        .socialButtonDiv
-          span.socialTip= t('linkedInBlurb')
-          a#socialButton_LinkedIn.socialButton href="https://www.linkedin.com/profile/view?id=133875463" title="LinkedIn"
+      table#socialButtonsTable
+        tr
+          td
+            span.socialTip= t('gitHubBlurb')
+            a#socialButton_GitHub.socialButton href="http://google.com" title="GitHub"
+          td
+            span.socialTip= t('flickrBlurb')
+            a#socialButton_Flickr.socialButton href="https://www.flickr.com/photos/95043389@N04/" title="Flickr" 
+          td
+            span.socialTip= t('linkedInBlurb')
+            a#socialButton_LinkedIn.socialButton href="https://www.linkedin.com/profile/view?id=133875463" title="LinkedIn"
       hr.hrLight.top
       hr/
       hr.hrLight.bottom

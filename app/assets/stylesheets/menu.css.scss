@@ -3,15 +3,16 @@
 
 #menu
 {
-	display: block;
 	width: $PHOTO_WIDTH;
 	text-align: center;
 }
 
 #menuTable
 {
-	text-align: center;
-	display: inline-block;
+	margin-left:auto; 
+    margin-right:auto;
+
+    text-align: center;
 
 	td
 	{
