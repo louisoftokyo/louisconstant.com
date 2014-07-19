@@ -1,0 +1,36 @@
+﻿# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+ko:
+  generalButton: "일반"
+  interiorsButton: "인테리어"
+  eventsButton: "이벤트"
+  peopleButton: "인물"
+  aboutLabel: "사이트 소개"
+  aboutBlurb1_html: |
+    저는 런던과 도쿄, 서울에서 활발히 활동하는 프로그래머이자 아마추어 사진가 입니다.
+  aboutBlurb2_html: |
+    이 사이트는 &nbsp;<a href="http://rubyonrails.org"><img class="inlineLogo" src="/assets/logo_rails.png"/></a>, &nbsp;<a href="http://slim-lang.com"><img class="inlineLogo" src="/assets/logo_slim.png"/></a>, &nbsp;<a href="http://coffeescript.org"><img class="inlineLogo inlineLogoShift" src="/assets/logo_coffeescript.png"/></a>과 &nbsp;<a href="http://sass-lang.com"><img class="inlineLogo inlineLogoShift" src="/assets/logo_sass.png"/></a>&nbsp;으로 개발되었습니다.
+  aboutBlurb3_html: |
+    이 사이트에 있는 사진들은 &nbsp;<img class="inlineLogo" src="/assets/logo_sony.png"/> a7과 다양한 <img class="inlineLogo" src="/assets/logo_sony.png"/> + &nbsp;<img class="inlineLogo" src="/assets/logo_minolta.png"/>&nbsp;의 렌즈들로 찍은 것들입니다.
+  gitHubBlurb: "GitHubで소스열람"
+  linkedInBlurb: "LinkedIn에서 맺기"
+  flickrBlurb: "Flickr에서팔로우"

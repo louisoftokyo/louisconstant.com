@@ -1,0 +1,36 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+en:
+  generalButton: "General"
+  interiorsButton: "Interiors"
+  eventsButton: "Events"
+  peopleButton: "People"
+  aboutLabel: "About"
+  aboutBlurb1_html: |
+    I'm a <span id="inlineProgrammer">programmer</span> and amateur &nbsp;<span id="inlinePhotographer">photographer</span> active in London, Tokyo and Seoul.
+  aboutBlurb2_html: |
+    This site was developed with &nbsp;<a href="http://rubyonrails.org"><img class="inlineLogo" src="/assets/logo_rails.png"/></a>, &nbsp;<a href="http://slim-lang.com"><img class="inlineLogo" src="/assets/logo_slim.png"/></a>, &nbsp;<a href="http://coffeescript.org"><img class="inlineLogo inlineLogoShift" src="/assets/logo_coffeescript.png"/></a> and &nbsp;<a href="http://sass-lang.com"><img class="inlineLogo inlineLogoShift" src="/assets/logo_sass.png"/></a>.
+  aboutBlurb3_html: |
+    The photos on this site were taken with a &nbsp;<img class="inlineLogo" src="/assets/logo_sony.png"/> a7 and a variety of &nbsp;<img class="inlineLogo" src="/assets/logo_sony.png"/> + &nbsp;<img class="inlineLogo" src="/assets/logo_minolta.png"/> glass.
+  gitHubBlurb: "View source on GitHub"
+  linkedInBlurb: "Connect on LinkedIn"
+  flickrBlurb: "Follow on Flickr"
