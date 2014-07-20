@@ -55,25 +55,27 @@ class HomeController < ApplicationController
   end
   
   def previous
-  	@whereResult = Photo.
+  	@previousPhotos = Photo.
       where("id < ?", params[:clientNum]).
       where("album = ?", params[:album])
-  	if @whereResult.blank?
-  	  @photo = Photo.order("id DESC").first
+  	if @previousPhotos.blank?
+  	  @photo = Photo.
+      where("album = ?", params[:album]).order("id DESC").first
   	else	  
-  	  @photo = @whereResult.order("id DESC").first
+  	  @photo = @previousPhotos.order("id DESC").first
   	end	  
 	respond_with(@photo)
   end
    
   def next
-  	@whereResult = Photo.
+  	@nextPhotos = Photo.
       where("id > ?", params[:clientNum]).
       where("album = ?", params[:album])
-  	if @whereResult.blank?
-  	  @photo = Photo.first
+  	if @nextPhotos.blank?
+  	  @photo = Photo.
+        where("album = ?", params[:album]).first
   	else	  
-  	  @photo = @whereResult.order("id ASC").first
+  	  @photo = @nextPhotos.order("id ASC").first
   	end	  
 	respond_with(@photo)
   end
