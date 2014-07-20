@@ -43,7 +43,8 @@ class HomeController < ApplicationController
     thumbnailsPath = 'app/assets/images/thumbnails/' + params[:albumName] + '/'
     @imgNames = []
 
-    Dir.foreach(thumbnailsPath) do |file|
+    thumbnails = Dir[thumbnailsPath + '*'].sort_by{ |f| File.mtime(f) }
+    thumbnails.each do |file|
       next if file == '.' or file == '..'
       filename = File.basename(file, ".*")
       @imgNames.push(filename)
