@@ -66,17 +66,18 @@ init = ->
 loadPhotoJSON = (photoJSON) ->
 	log photoJSON
 	return if photoJSON is null
+	imgName = nameFromPath(photoJSON["path"]
 	$("#mainImg, #mainImgShadow").fadeTo 200, 0.0, -> 
 		$("#mainImg").attr "src", photoJSON["path"]
-		$("#mainImg").attr "data-filename", nameFromPath(photoJSON["path"])
+		$("#mainImg").attr "data-filename", imgName)
 	$("#imgTitle").fadeTo 200, 0.0, -> 
-		$("#imgTitle").html (if locale is "ja" then photoJSON["japanese_title"] else photoJSON["english_title"])
+		$("#imgTitle").html (if locale is "ja" then photoJSON["photo"]["japanese_title"] else photoJSON["photo"]["english_title"])
 	$("#imgTitle").fadeTo 200, 1.0	
 	photoNum = photoJSON["id"]
 	$("#mainImgShadow").width $("#mainImg").width() - 4
 	$("#mainImgShadow").height ($("#mainImg").height() * 0.6)
 	$(".imgThumbnail").removeClass "selectedThumbnail"
-	$("#" + photoJSON["filename"]).addClass "selectedThumbnail"
+	$("#" + imgName).addClass "selectedThumbnail"
 
 menuSwitch = (menuName) ->
 	$(".menuButton").each -> $(@).removeClass "selected_" + $(@).attr "id"
