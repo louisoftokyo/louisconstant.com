@@ -50,7 +50,11 @@ init = ->
 	$("#mainImg").load ->
 		$("#mainImgShadow").width $("#mainImg").width()
 		$("#mainImgShadow").height ($("#mainImg").height() * 0.5)
-		$("#mainImg").fadeTo 200, 1.0, -> $("#mainImgShadow").fadeTo(200, 1.0)
+
+		$("#mainImgBacking").width $("#mainImg").width()
+		$("#mainImgBacking").height ($("#mainImg").height())
+
+		$("#mainImg, #mainImgShadow").fadeTo 200, 1.0
 
 	$("#rightArrow").click nextPhoto
 	$("#leftArrow").click previousPhoto
@@ -61,8 +65,7 @@ init = ->
 
 loadPhotoJSON = (photoJSON) ->
 	return if photoJSON is null
-	$("#mainImgShadow").fadeTo(0, 0.0);
-	$("#mainImg").fadeTo 200, 0.0, -> 
+	$("#mainImg, #mainImgShadow").fadeTo 200, 0.0, -> 
 		$("#mainImg").attr "src", "/assets/photos/" + currentAlbum + "/" + photoJSON["filename"] + ".jpg"
 	$("#imgTitle").fadeTo 200, 0.0, -> 
 		$("#imgTitle").html (if locale is "ja" then photoJSON["japanese_title"] else photoJSON["english_title"])
@@ -74,7 +77,6 @@ loadPhotoJSON = (photoJSON) ->
 	$("#" + photoJSON["filename"]).addClass "selectedThumbnail"
 
 menuSwitch = (menuName) ->
-	console.log 'Menu switching to ' + menuName
 	$(".menuButton").each -> $(@).removeClass "selected_" + $(@).attr "id"
 	selectedMenuObject = $("#" + menuName)
 	selectedMenuObject.addClass "selected_" + menuName
@@ -84,18 +86,15 @@ menuSwitch = (menuName) ->
 
 
 loadThumbnails = (album) ->
-	console.log 'Loading thumbnails from ' + album
-	thumbnailFadeoutTime = 300
-	thumbnailFadeoutInterval = 15
+	thumbnailFadeoutTime = 350
+	thumbnailFadeoutInterval = 20
 
 	delay = 0;
-	$('.imgThumbnail').each -> 
-	    $(@).delay(delay)
+	$('.thumbnailCell').each -> 
+	    $(@).delay $(@).index() * thumbnailFadeoutInterval
 	    $(@).animate {opacity: 0}, thumbnailFadeoutTime
-	    delay += thumbnailFadeoutInterval
-		#$(@).attr "src", "/assets/thumbnails/" + currentAlbum + "/" + ($(@).attr "id") + ".jpg"
 
-	$('.imgThumbnail').remove()
+	$('.thumbnailRow').remove()
 
 	thumbnailsPath = '/assets/thumbnails/' + album + '/'
 
@@ -103,44 +102,43 @@ loadThumbnails = (album) ->
 	htmlString = ''
 
 	$.post "home/getAlbum", {albumName:album}, (imgNames) ->
+		loadCounter = 0
 		c = 0
+		tr = $('<tr>', {class: 'thumbnailRow'})
+		count = 0
 		for imgName in imgNames
-			if c is 0
-				htmlString += '<tr>'
+			img = $('<img>', {id: imgName, class: 'imgThumbnail', src: thumbnailsPath + imgName + '.jpg'})
 
-			htmlString += '<td class="thumbnailCell">'
-			htmlString += '<img src="' + thumbnailsPath + imgName + '.jpg" id="' + imgName + '" class="imgThumbnail" width="150px" height="150px"></img>'
-			htmlString += '</td>'
+			img.load ->
+				loadCounter += 1
+				if loadCounter is imgNames.length
+					delay = 0;
+					$('.imgThumbnail').each -> 
+					    $(@).delay(delay)
+					    $(@).animate {opacity: 0.4}, thumbnailFadeoutTime
+					    delay += thumbnailFadeoutInterval
+
+			td = $('<td>', {class: 'thumbnailCell'})
+			td.append img
+
+			tr.append td
 
 			c += 1
-			if c is 3
-				htmlString += '</tr>'
+			if c == 3
 				c = 0
+				$('#thumbnailTable').append tr
+				tr = $('<tr>', {class: 'thumbnailRow'})
 
-		loadCounter = 0
-		$(".thumbnailImg").load ->
-			loadCounter++
-		
-		$('#thumbnailTable').html(htmlString)
+			if count + 1 is imgNames.length
+				$('#thumbnailTable').append tr
 
-		while(loadCounter < $(".thumbnailImg").length)
-			a=0
-
-		delay = 0;
-		$('.imgThumbnail').each -> 
-	    $(@).delay(delay)
-	    $(@).animate {opacity: 0.4}, thumbnailFadeoutTime
-	    delay += thumbnailFadeoutInterval
-
-
-
-
-	#$(".imgThumbnail").each -> $(@).attr "src", "/assets/thumbnails/" + currentAlbum + "/" + ($(@).attr "id") + ".jpg"
+			count += 1
 
 getLocale          = -> $.get "home/locale"   , {}                                      , (data) -> locale = data
 firstPhoto   	   = -> $.get "home/latest"   , {                    album:currentAlbum}, (data) -> loadPhotoJSON data
 nextPhoto          = -> $.post "home/next"    , {clientNum:photoNum, album:currentAlbum}, (data) -> loadPhotoJSON data
 previousPhoto      = -> $.post "home/previous", {clientNum:photoNum, album:currentAlbum}, (data) -> loadPhotoJSON data
 getPhoto = (id)      -> $.post "home/getPhoto", {photoID:id}                            , (data) -> loadPhotoJSON data
+log = (s)		     -> console.log s
 
 

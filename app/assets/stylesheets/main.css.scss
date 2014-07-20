@@ -151,6 +151,7 @@ hr
 	padding-top: 10px;
 
 	height: $PHOTO_HEIGHT;
+	overflow-x: hidden;
 	overflow-y: scroll;
 
 	&::-webkit-scrollbar
@@ -192,15 +193,15 @@ hr
 #mainImgBacking
 {
 	position: absolute;
-	display: inline-block;
 	margin: auto;
 	top: 0; left: 0; bottom: 0; right: 0;
 	width: 0px;
 	height: 0px;
+	max-width: 100%;
+	max-height: 100%;
 
 	background-color: $BACKGROUND_COLOUR;
 	z-index: -1;
-	pointer-events:none;
 }
 
 #mainImgShadow
@@ -215,7 +216,6 @@ hr
 
 	background-color: #808080;
 	z-index: -2;
-	pointer-events:none;
 
 	@include mainImgShadow();
 }
@@ -234,7 +234,6 @@ hr
 .imgThumbnail
 {
 	cursor: pointer;
-	//border: $THUMBNAIL_BORDER_WIDTH solid $BACKGROUND_COLOUR;
 	position: relative;
 	margin: $THUMBNAIL_BORDER_WIDTH / 2;
 	width: $THUMBNAIL_WIDTH;
@@ -242,8 +241,6 @@ hr
 	@include unselectable;
 
 	opacity: 0.0;
-
-	animation: 0.0;
 }
 
 	.highlightedThumbnail
