@@ -30,7 +30,7 @@ en:
   aboutBlurb2_html: |
     This site was developed with &nbsp;<a href="http://rubyonrails.org"><img class="inlineLogo" src="/assets/logo_rails.png"/></a>, &nbsp;<a href="http://slim-lang.com"><img class="inlineLogo" src="/assets/logo_slim.png"/></a>, &nbsp;<a href="http://coffeescript.org"><img class="inlineLogo inlineLogoShift" src="/assets/logo_coffeescript.png"/></a> and &nbsp;<a href="http://sass-lang.com"><img class="inlineLogo inlineLogoShift" src="/assets/logo_sass.png"/></a>.
   aboutBlurb3_html: |
-    The photos on this site were taken with a &nbsp;<img class="inlineLogo" src="/assets/logo_sony.png"/> a7 and a variety of &nbsp;<img class="inlineLogo" src="/assets/logo_sony.png"/> + &nbsp;<img class="inlineLogo" src="/assets/logo_minolta.png"/> glass.
+    The photos on this site were taken with a &nbsp;<img class="inlineLogo" src="/assets/logo_sony.png"/>&nbsp;<img class="inlineLogo" src="/assets/logo_a7.png"/>&nbsp;and a variety of &nbsp;<img class="inlineLogo" src="/assets/logo_sony.png"/> + &nbsp;<img class="inlineLogo" src="/assets/logo_minolta.png"/> glass.
   gitHubBlurb: "View source on GitHub"
   linkedInBlurb: "Connect on LinkedIn"
   flickrBlurb: "Follow on Flickr"

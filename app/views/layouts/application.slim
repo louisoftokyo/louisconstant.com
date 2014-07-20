@@ -42,10 +42,11 @@ html
           td
         tr
           td#frameCell
-            #imgOverlay
+            #imgContainer
               = image_tag("", :id => "mainImg", :class => "", :data => {:filename => "" })
-              = image_tag("left_arrow.png", :id => "leftArrow")
-              = image_tag("right_arrow.png", :id => "rightArrow")
+              #imgOverlay
+                = image_tag("left_arrow.png", :id => "leftArrow")
+                = image_tag("right_arrow.png", :id => "rightArrow")
               #mainImgShadow
           td#thumbnailWrapperCell
             #thumbnailWrapper

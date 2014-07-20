@@ -8,7 +8,7 @@ $(document).ready -> init()
 init = ->
 	moveAmount = 10
 	zoomAmount = 1.2;
-	maxRotation = 20
+	maxRotation = 60
 
 	$(".menuButton").click ->
 		menuSwitch($(@).attr "id")

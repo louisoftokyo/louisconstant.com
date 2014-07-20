@@ -123,14 +123,12 @@ hr
 
 #frameCell
 {
-	//background-color: red;
 	width: $PHOTO_WIDTH;
 	height: $PHOTO_HEIGHT;
 }
 
 #thumbnailWrapperCell
 {
-	//background-color: green;
 	height: $PHOTO_HEIGHT;
 }
 
@@ -141,18 +139,17 @@ hr
 	position: absolute;
 	margin: auto;
 	top: 0; left: 0; bottom: 0; right: 0;
-
-	&:hover ~ .arrowIcon
-	{
-		opacity: 0.3;
-	}
 }
 
 #thumbnailWrapper
 {
 	display: inline-block;
+	box-sizing: border-box;
+	width: 450px;
 	padding-left: 80px;
 	padding-right: 40px;
+	padding-top: 10px;
+
 	height: $PHOTO_HEIGHT;
 	overflow-y: scroll;
 
@@ -242,6 +239,7 @@ hr
 	margin: $THUMBNAIL_BORDER_WIDTH / 2;
 	width: $THUMBNAIL_WIDTH;
 	height: $THUMBNAIL_WIDTH;
+	@include unselectable;
 
 	opacity: 0.0;
 
@@ -289,16 +287,26 @@ hr
 
 /****************IMGOVERLAY****************/
 
+#imgContainer
+{
+	position: relative;
+	width: $PHOTO_WIDTH;
+	height: $PHOTO_HEIGHT;
+	text-align: center;
+}
+
 #imgOverlay
 {
 	position: relative;
 	width: $PHOTO_WIDTH;
 	height: $PHOTO_HEIGHT;
-	//display: table-cell;
-	vertical-align: middle;
 	text-align: center;
-	z-index: 10;
-	pointer-events: all;
+	opacity: 0;
+
+	&:hover
+	{
+		opacity: 1;
+	}
 }
 
 %arrowIcon
@@ -306,8 +314,7 @@ hr
 	cursor: pointer;
 	position: absolute;
 	top: $PHOTO_HEIGHT/2 - $ARROW_HEIGHT/2;
-	opacity: 0;
-	pointer-events: all;
+	opacity: 0.3;
 
 	&:hover
 	{
