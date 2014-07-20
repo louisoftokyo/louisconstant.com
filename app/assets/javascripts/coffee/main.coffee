@@ -51,7 +51,7 @@ init = ->
 		$("#mainImgShadow").width $("#mainImg").width()
 		$("#mainImgShadow").height ($("#mainImg").height() * 0.5)
 
-		$("#mainImgBacking").width $("#mainImg").width()
+		$("#mainImgBacking").width $("#mainImg").width() - 2
 		$("#mainImgBacking").height ($("#mainImg").height())
 
 		$("#mainImg, #mainImgShadow").fadeTo 200, 1.0
