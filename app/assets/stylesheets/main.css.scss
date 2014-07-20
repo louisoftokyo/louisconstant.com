@@ -47,7 +47,7 @@ hr
 	margin: 0 auto;
 }
 
-#topDecoration
+.rainbowDecoration
 {
 	height: 5px;
 	background-image: image-url("rainbowBar.jpg");
@@ -268,7 +268,7 @@ hr
 
 .thumbnailCell
 {
-	//opacity: 0.4;
+	@include unselectable;
 	width: $THUMBNAIL_WIDTH;
 	height: $THUMBNAIL_WIDTH;
 	vertical-align: middle;

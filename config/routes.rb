@@ -6,6 +6,7 @@ Photos::Application.routes.draw do
 
   post '/home/getPhoto' => 'home#getPhoto'
   post '/home/getAlbum' => 'home#getAlbum'
+  post '/home/navigate' => 'home#navigate'
 	post '/home/next' => 'home#next'
 	post '/home/previous' => 'home#previous'
 	get '/home/latest' => 'home#latest'

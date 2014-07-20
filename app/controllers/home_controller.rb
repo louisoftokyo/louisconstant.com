@@ -1,6 +1,11 @@
 class HomeController < ApplicationController
   before_action :set_locale
   respond_to :json
+
+  @@photosClientPath           = File.join('', 'assets', 'photos')
+  @@thumbnailsClientPath = File.join('', 'assets', 'thumbnails')
+  @@thumbnailsServerPath = File.join('app', 'assets', 'images', 'thumbnails')
+  @@imgExt = '.jpg'
   
   def set_locale
 	I18n.locale = params[:locale] || I18n.default_locale
@@ -24,33 +29,35 @@ class HomeController < ApplicationController
     else    
       @photo = @whereResult.order("id ASC").first
     end   
-  respond_with(@photo)
+  
+  render json: {photo: @photo, path: File.join(@@photosClientPath, @photo.album, @photo.filename + @@imgExt)}
   end
 
   def getPhoto
     
-  @whereResult = Photo.where("filename = ?", params[:photoID])
+  @whereResult = Photo.where("filename = ?", params[:photoID]).
+        where("album = ?", params[:album])
   if @whereResult.blank?
     @photo = Photo.order("id ASC").first
   else    
     @photo = @whereResult.first
   end
-    
-  respond_with(@photo)
+
+  render json: {photo: @photo, path: File.join(@@photosClientPath, @photo.album, @photo.filename + @@imgExt)}
+
   end
 
   def getAlbum
-    thumbnailsPath = 'app/assets/images/thumbnails/' + params[:albumName] + '/'
-    @imgNames = []
-
-    thumbnails = Dir[thumbnailsPath + '*'].sort_by{ |f| File.mtime(f) }
+    @imgPaths = []
+    thumbnails = Dir[File.join(@@thumbnailsServerPath, params[:albumName], '*')].sort_by{ |f| File.mtime(f) }
+    puts thumbnails
     thumbnails.each do |file|
       next if file == '.' or file == '..'
-      filename = File.basename(file, ".*")
-      @imgNames.push(filename)
+      name = File.basename(file, '.*')
+      @imgPaths.push(File.join(@@thumbnailsClientPath, params[:albumName], name + @@imgExt))
     end    
     respond_to do |format|
-       format.json { render :json => @imgNames }
+       format.json { render :json => @imgPaths }
      end
   end
   
@@ -64,20 +71,20 @@ class HomeController < ApplicationController
   	else	  
   	  @photo = @previousPhotos.order("id DESC").first
   	end	  
-	respond_with(@photo)
+	render json: {photo: @photo, path: File.join(@@photosClientPath, @photo.album, @photo.filename + @@imgExt)}
   end
    
-  def next
-  	@nextPhotos = Photo.
-      where("id > ?", params[:clientNum]).
-      where("album = ?", params[:album])
-  	if @nextPhotos.blank?
-  	  @photo = Photo.
-        where("album = ?", params[:album]).first
-  	else	  
-  	  @photo = @nextPhotos.order("id ASC").first
+  def navigate
+    forwards = params[:forwards] == "true"
+  	@currentPhoto = Photo.where("filename = ?", params[:currentPhoto]).where("album = ?", params[:album]).first
+    @newPhoto = Photo.where("id " + ((forwards ? ">" : "<") + " ?"), @currentPhoto.id).order("id " + (forwards ? "ASC" : "DESC")).where("album = ?", @currentPhoto.album).first      
+  	if @newPhoto.blank?
+       @thisAlbum = Photo.where("album = ?", @currentPhoto.album).order("id ASC")
+  	   @newPhoto = forwards ? @thisAlbum.first : @thisAlbum.last
+       puts @newPhoto.id
+       puts @newPhoto.english_title
   	end	  
-	respond_with(@photo)
+	render json: {photo: @newPhoto, path: File.join(@@photosClientPath, @newPhoto.album, @newPhoto.filename + @@imgExt)}
   end
   
   ######################################################
