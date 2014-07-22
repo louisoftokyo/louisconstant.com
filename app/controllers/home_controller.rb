@@ -2,7 +2,7 @@ class HomeController < ApplicationController
   before_action :set_locale
   respond_to :json
 
-  @@photosClientPath           = File.join('', 'assets', 'photos')
+  @@photosClientPath     = File.join('', 'assets', 'photos')
   @@thumbnailsClientPath = File.join('', 'assets', 'thumbnails')
   @@thumbnailsServerPath = File.join('app', 'assets', 'images', 'thumbnails')
   @@imgExt = '.jpg'
@@ -15,13 +15,7 @@ class HomeController < ApplicationController
 	respond_with(I18n.locale || I18n.default_locale)
   end
   
-  def display
-	@photos = Photo.all(:order => "id ASC")
-	@rainbowPhotos = Photo.all(:order => "hue ASC")
-	
-	@locale = I18n.locale
-  end
-  
+
   def latest
     @whereResult = Photo.where("album = ?", params[:album])
     if @whereResult.blank?
@@ -33,7 +27,7 @@ class HomeController < ApplicationController
   render json: {photo: @photo, path: File.join(@@photosClientPath, @photo.album, @photo.filename + @@imgExt)}
   end
 
-  def getPhoto
+  def photo
     
   @whereResult = Photo.where("filename = ?", params[:photoID]).
         where("album = ?", params[:album])
@@ -47,7 +41,7 @@ class HomeController < ApplicationController
 
   end
 
-  def getAlbum
+  def album
     @imgPaths = []
     thumbnails = Dir[File.join(@@thumbnailsServerPath, params[:albumName], '*')].sort_by{ |f| File.mtime(f) }
     puts thumbnails
@@ -56,6 +50,7 @@ class HomeController < ApplicationController
       name = File.basename(file, '.*')
       @imgPaths.push(File.join(@@thumbnailsClientPath, params[:albumName], name + @@imgExt))
     end    
+
     respond_to do |format|
        format.json { render :json => @imgPaths }
      end

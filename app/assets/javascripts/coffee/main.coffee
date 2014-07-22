@@ -6,7 +6,7 @@ $(document).ready -> init()
 init = ->
 	moveAmount = 10
 	zoomAmount = 1.2;
-	maxRotation = 60
+	maxRotation = 45
 
 	$(".menuButton").click ->
 		menuSwitch($(@).attr "id")
@@ -64,12 +64,11 @@ init = ->
 	menuSwitch(currentAlbum)
 
 loadPhotoJSON = (photoJSON) ->
-	log photoJSON
 	return if photoJSON is null
-	imgName = nameFromPath(photoJSON["path"]
+	imgName = nameFromPath photoJSON["path"]
 	$("#mainImg, #mainImgShadow").fadeTo 200, 0.0, -> 
 		$("#mainImg").attr "src", photoJSON["path"]
-		$("#mainImg").attr "data-filename", imgName)
+		$("#mainImg").attr "data-filename", imgName
 	$("#imgTitle").fadeTo 200, 0.0, -> 
 		$("#imgTitle").html (if locale is "ja" then photoJSON["photo"]["japanese_title"] else photoJSON["photo"]["english_title"])
 	$("#imgTitle").fadeTo 200, 1.0	
@@ -101,7 +100,7 @@ loadThumbnails = (album) ->
 
 	imgNames = []
 
-	$.post "home/getAlbum", {albumName:album}, (imgPaths) ->
+	$.post "album", {albumName:album}, (imgPaths) ->
 		loadCounter = 0
 		c = 0
 		tr = $('<tr>', {class: 'thumbnailRow'})
@@ -134,11 +133,11 @@ loadThumbnails = (album) ->
 
 			count += 1
 
-getLocale           = -> $.get "home/locale"   , {}, (data) -> locale = data
-firstPhoto   	    = -> $.get "home/latest"   , {album:currentAlbum}, (data) -> loadPhotoJSON data
-nextPhoto           = -> $.post "home/navigate", {currentPhoto:$("#mainImg").attr("data-filename"), album:currentAlbum, forwards: true}, (data) -> loadPhotoJSON data
-previousPhoto       = -> $.post "home/navigate", {currentPhoto:$("#mainImg").attr("data-filename"), album:currentAlbum, forwards: false}, (data) -> loadPhotoJSON data
-getPhoto = (id)       -> $.post "home/getPhoto", {photoID:id, album:currentAlbum}, (data) -> loadPhotoJSON data
+getLocale           = -> $.get "get_locale"   , {}, (data) -> locale = data
+firstPhoto   	    = -> $.get "latest"   , {album:currentAlbum}, (data) -> loadPhotoJSON data
+nextPhoto           = -> $.post "navigate", {currentPhoto:$("#mainImg").attr("data-filename"), album:currentAlbum, forwards: true}, (data) -> loadPhotoJSON data
+previousPhoto       = -> $.post "navigate", {currentPhoto:$("#mainImg").attr("data-filename"), album:currentAlbum, forwards: false}, (data) -> loadPhotoJSON data
+getPhoto = (id)       -> $.post "photo", {photoID:id, album:currentAlbum}, (data) -> loadPhotoJSON data
 nameFromPath = (path) -> path.match(/\d+/)
 log = (s)		      -> console.log s
 

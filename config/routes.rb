@@ -1,16 +1,20 @@
 Photos::Application.routes.draw do
-  scope "/:locale" do
-    get '/home' => 'home#display'
-    get '/about' => 'home#about'
-    get '/contact' => 'home#contact'
+    get 'latest' => 'home#latest'
+    post 'photo' => 'home#photo'
+    post 'album' => 'home#album'
+    post 'navigate' => 'home#navigate'
+    
 
-  post '/home/getPhoto' => 'home#getPhoto'
-  post '/home/getAlbum' => 'home#getAlbum'
-  post '/home/navigate' => 'home#navigate'
-	post '/home/next' => 'home#next'
-	post '/home/previous' => 'home#previous'
-	get '/home/latest' => 'home#latest'
-	get '/home/locale' => 'home#get_locale'
+  scope "/:locale" do
+    get '/' => 'home#display'
+
+    get 'latest' => 'home#latest'
+    post 'photo' => 'home#photo'
+    post 'album' => 'home#album'
+    post 'navigate' => 'home#navigate'
+    
+
+  	get 'get_locale' => 'home#get_locale'
   
     resources :photos
   end
@@ -18,7 +22,7 @@ Photos::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root :to => redirect("/en/home")
+  root :to => redirect("en/")
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
