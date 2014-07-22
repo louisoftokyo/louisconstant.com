@@ -9,7 +9,17 @@ body
 {
 	margin: 0px;
 	background: $BACKGROUND_COLOUR;
-	//background-image: image-url("mainbg.jpg");
+}
+
+a
+{
+	text-decoration: none;
+	color: black;
+	@include quickTransition(0.1s);
+	&:hover
+	{
+		color: $BLUE;
+	}	
 }
 
 hr
@@ -39,13 +49,7 @@ hr
 	}
 }
 
-/****************TOP****************/
-
-.contentContainer
-{
-	width: 90%;
-	margin: 0 auto;
-}
+/****************HEADER****************/
 
 .rainbowDecoration
 {
@@ -75,49 +79,20 @@ hr
 		@include font_languages;
 	}
 
-/****************WRAPPER: MENU, FRAME, THUMBNAILS****************/
+/****************CONTENT****************/
 
-#menuFrameThumbnailWrapper
+.contentContainer
 {
+	width: 90%;
+	margin: 0 auto;
 	text-align: center;
 }
 
-/****************WRAPPER: FRAME, THUMBNAILS****************/
 
-#frameThumbnailWrapper
-{
-	background-color: red;
-	height: $PHOTO_HEIGHT;
-
-	text-align: center;
-
-
-}
-
-#frame
-{	
-	background-color: blue;
-	display: inline-block;
-
-	width: $PHOTO_WIDTH;
-	height: $PHOTO_HEIGHT;
-
-	&:hover #imgTitleContainer
-	{
-		@include fadeTo(1.0);
-	}
-
-	&:hover #imgOverlay
-	{
-		@include fadeTo(1.0)
-	}
-}
-
-#frameThumbnailTable
+#mainContentTable
 {
 	margin-left:auto; 
     margin-right:auto;
-
     text-align: center;
 }
 
@@ -146,11 +121,8 @@ hr
 	display: inline-block;
 	box-sizing: border-box;
 	width: 450px;
-	padding-left: 80px;
-	padding-right: 40px;
-	padding-top: 10px;
-
 	height: $PHOTO_HEIGHT;
+	padding: 10px 40px 0 80px;
 	overflow-x: hidden;
 	overflow-y: scroll;
 
@@ -177,29 +149,17 @@ hr
 	{
 		background: rgba(50,50,50,0.4); 
 	}
-
 }
-
-
-@mixin mainImgShadow($blur: 5px, $spread: 0px)
-{
-	-webkit-box-shadow: 6px 0px 128px -5px rgba(0,0,0,0.75), 6px 0px 128px -5px rgba(0,0,0,0.75);
-	-moz-box-shadow: 0px 0px 128px 22px rgba(0,0,0,0.75);
-	box-shadow: 0px 0px 128px 22px rgba(0,0,0,0.75);
-}
-
-
 
 #mainImgBacking
 {
 	position: absolute;
 	margin: auto;
 	top: 0; left: 0; bottom: 0; right: 0;
-	width: 0px;
-	height: 0px;
+	width: 0;
+	height: 0;
 	max-width: 100%;
 	max-height: 100%;
-
 	background-color: $BACKGROUND_COLOUR;
 	z-index: -1;
 }
@@ -209,38 +169,28 @@ hr
 	position: absolute;
 	margin: auto;
 	top: 0; left: 0; bottom: 0; right: 0;
-	width: 0px;
-	height: 0px;
+	width: 0;
+	height: 0;
 	max-width: 100%;
 	max-height: 100%;
-
 	background-color: #808080;
 	z-index: -2;
 
-	@include mainImgShadow();
+	-webkit-box-shadow: 6px 0px 128px -5px rgba(0,0,0,0.75), 6px 0px 128px -5px rgba(0,0,0,0.75);
+	-moz-box-shadow: 0px 0px 128px 22px rgba(0,0,0,0.75);
+	box-shadow: 0px 0px 128px 22px rgba(0,0,0,0.75);
 }
-
-
-
-	#mainImgPositioner
-	{    
-		display: inline-block;
-    	height: 100%;
-    	vertical-align: middle;
-	}
-
 
 
 .imgThumbnail
 {
+	@include unselectable;
 	cursor: pointer;
 	position: relative;
 	margin: $THUMBNAIL_BORDER_WIDTH / 2;
 	width: $THUMBNAIL_WIDTH;
 	height: $THUMBNAIL_WIDTH;
-	@include unselectable;
-
-	opacity: 0.0;
+	opacity: 0;
 }
 
 	.highlightedThumbnail
@@ -253,7 +203,6 @@ hr
 	.clickedThumbnail
 	{
 		$zoomAmount: 0.9;
-
 		-webkit-transform: scale($zoomAmount, $zoomAmount);
 		-moz-transform: scale($zoomAmount, $zoomAmount);
 		-o-transform: scale($zoomAmount, $zoomAmount);
@@ -272,17 +221,10 @@ hr
 	width: $THUMBNAIL_WIDTH;
 	height: $THUMBNAIL_WIDTH;
 	vertical-align: middle;
-	&:hover .imgThumbnail
-	{
-		//@include fadeTo(1.0);
-	}
 }
 
 
-
-
-
-/****************IMGOVERLAY****************/
+/****************IMGMAIN OVERLAY****************/
 
 #imgContainer
 {
@@ -331,7 +273,7 @@ hr
 	left: 30px;
 }
 
-/****************IMGTITLE****************/
+/****************IMGMAIN TITLE****************/
 
 #imgTitle
 {
@@ -340,16 +282,11 @@ hr
 
 #imgTitleContainer
 {
-	text-align: center;
 	width: $PHOTO_WIDTH;
-}
-
-/*BOTTOM CONTAINER*/
-
-#bottomContainer
-{
 	text-align: center;
 }
+
+/****************BOTTOM****************/
 
 #socialButtonsTable
 {

@@ -1,6 +1,8 @@
 @import "_common.css.scss";
 @import "_fonts.css.scss";
 
+
+
 #menu
 {
 	width: $PHOTO_WIDTH;
@@ -23,62 +25,32 @@
 
 .menuButton
 {
-	cursor: pointer;
 	@include font_menuButton;
 	@include unselectable;
 	@include quickTransition(0.1s);
+	cursor: pointer;
 }
 
-#general:hover
+#general:hover, .selected_general
 {
 	color: white;
-	background-color: #85c3ee;
+	background-color: $BLUE;
 }
 
-#interiors:hover
+#interiors:hover, .selected_interiors
 {
 	color: white;
-	background-color: #d083d0;
+	background-color: $GREEN;
 }
 
-#events:hover
+#events:hover, .selected_events
 {
 	color: white;
-	background-color: #fadd89;
+	background-color: $PINK;
 }
 
-#people:hover
+#people:hover, .selected_people
 {
 	color: white;
-	background-color: #c5da71;
+	background-color: $YELLOW;
 }
-
-%selected
-{
-	color: white;
-}
-
-.selected_general
-{
-	@extend %selected;
-	background-color: #85c3ee;
-}
-
-.selected_interiors
-{
-	@extend %selected;
-	background-color: #d083d0;
-}
-
-.selected_events
-{
-	@extend %selected;
-	background-color: #fadd89;
-}
-
-.selected_people
-{
-	@extend %selected;
-	background-color: #c5da71;
-}
-
